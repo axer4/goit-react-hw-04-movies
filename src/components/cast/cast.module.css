@@ -1,0 +1,15 @@
+.list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+}
+.heading {
+  color: black;
+  text-align: center;
+}
+.item {
+  text-align: center;
+  padding: 10px 15px;
+}

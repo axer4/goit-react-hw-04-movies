@@ -1,32 +1,25 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Route } from 'react-router-dom';
-import { HomePage } from "./components/homepage/HomePage";
-import { MoviesPage } from "./components/moviesPage/MoviesPage";
-import ApiSettings from "./service/apiSettings";
+import { Navigation } from "./components/navigation/Navigation";
+import { Switch, Route} from "react-router-dom";
+import { lazy, Suspense } from "react";
 
-const App = () => {
-    const [value, setValue] = useState('');
-    const [data, setData] = useState([]);
-    const inputHandler = (e) => {
-        setValue(e.target.value);
-    }
-    const searchMovies = () => {
-        ApiSettings(value)
-            .then(response => setData(response.data.results));
-    }
-    return (<>
-        {/* <input placeholder="Введите название фильма" onChange = {inputHandler} />
-        <button type='button' onClick={searchMovies}>Поиск</button> */}
-        {/* <HomePage /> */}
-        {/* <Route path="/" exact component={HomePage} />
-        <Route path="/movies" exact component={MoviesPage} /> */}
-        {/* <MoviesPage/> */}
-        {/* <ul>
-             {data.map(item => {
-            return <li>{item.original_title}</li>
-        })} 
-        </ul> */}
-    </>)
+const HomePage = lazy(() => import('./views/HomePageView' /* webpackChunkName: "home-view" */));
+const MoviesPage = lazy(() => import('./components/moviesPage/MoviesPage') /*webpackChunkName : "movies-page" */);
+const MovieDetailsPage = lazy(() => import('./components/MovieDetailsPage/MovieDetailsPage')/*webpackChunkName : "movies-details-page"*/);
+
+
+
+export const App = () => {
+    return ( <>
+        <Navigation />
+        <Suspense fallback = {<div>Loading...</div>}>
+        <Switch>
+        <Route path="/" exact><HomePage /></Route>
+        <Route path="/movies" exact><MoviesPage /></Route>
+            <Route path="/movies/:movieId"><MovieDetailsPage /></Route>
+            <Route><HomePage/></Route>
+            </Switch>
+            </Suspense>
+   </>)
 }
-export default App;
+
+

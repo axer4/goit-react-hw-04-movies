@@ -1,0 +1,13 @@
+a {
+  text-decoration: none;
+}
+.link {
+  margin-right: 15px;
+  font-size: 25px;
+}
+.activeLink {
+  color: aquamarine;
+}
+.nav {
+  text-align: center;
+}
