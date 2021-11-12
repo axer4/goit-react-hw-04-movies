@@ -3,8 +3,9 @@ import { NavLink, Route } from "react-router-dom";
 import { Cast } from "../cast/Cast";
 import { MovieReviews } from "../movieReviews/MovieReviews";
 import { useState } from "react";
-import { useParams } from "react-router";
+import { useParams ,useHistory, useLocation} from "react-router";
 import styles from './movieDetails.module.css';
+import GoBackButton from "../backButton/GoBackButton";
 export default function MovieDetailsPage(id) {
     const { movieId } = useParams();
     const KEY = 'e1f4818a0d3fba42c34b00359742bede';
@@ -17,10 +18,14 @@ export default function MovieDetailsPage(id) {
             .then(response => setData(response.data))
             .catch(err => console.log(err))
     }, [])
-    
-    console.log(data);
+  const history = useHistory();
+    const handleGoBackButton = () => {
+      history.goBack();
+   };
+  //   console.log(data);
   return (<>
-      <div className ={styles.info}>
+    <div className={styles.info}>
+      <GoBackButton goBack={ handleGoBackButton }/>
         <h2 className= {styles.heading}>{data.title}</h2>
         <img src={`${ImageBaseUrl}${data.poster_path}`} alt={ data.title}/>
         <p>Data : {data.release_date}</p>
