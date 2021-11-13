@@ -11,16 +11,17 @@ export default function MovieDetailsPage(id) {
     const KEY = 'e1f4818a0d3fba42c34b00359742bede';
     const [data, setData] = useState('');
     const ImageBaseUrl = "https://image.tmdb.org/t/p/w342";
-
     useState(() => {
         axios
             .get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${KEY}&language=en-US`)
-            .then(response => setData(response.data))
+          .then(response => setData(response.data))
             .catch(err => console.log(err))
     }, [])
   const history = useHistory();
+  const location = useLocation();
+  console.log(location)
     const handleGoBackButton = () => {
-      history.goBack();
+      history.push(location?.state?.from ?? "/")
    };
   //   console.log(data);
   return (<>
@@ -36,7 +37,7 @@ export default function MovieDetailsPage(id) {
             <li className = {styles.item}>
          <NavLink
                 to={{
-                  pathname: `/movies/${movieId}/cast`,
+            pathname: `/movies/${movieId}/cast`,
                 }}
               >
                 Cast

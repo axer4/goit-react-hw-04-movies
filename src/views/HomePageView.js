@@ -11,7 +11,8 @@ export default function HomePage() {
             .then(response => setData(response.data.results))
             .catch(err => console.log(err))
     }, [])
-    console.log(data);
+    // console.log(data);
+    localStorage.clear();
      return  <ul className = {style.list}>
         {data.map(item => {
             return <li key={item.id} className={style.item}>
